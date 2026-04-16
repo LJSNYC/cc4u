@@ -215,6 +215,26 @@ if [[ ${#MISSING[@]} -gt 0 ]]; then
   fi
 fi
 
+# ── install Python dependencies ───────────────────────────────────────────────
+hdr "Installing Python dependencies…"
+
+REQUIREMENTS="$PROJECT_ROOT/requirements.txt"
+if [[ -f "$REQUIREMENTS" ]]; then
+  if "$PYTHON3" -m pip install -r "$REQUIREMENTS" --quiet; then
+    ok "Python dependencies installed"
+  else
+    warn "pip install failed — trying with --user flag"
+    if "$PYTHON3" -m pip install -r "$REQUIREMENTS" --user --quiet; then
+      ok "Python dependencies installed (--user)"
+    else
+      err "Could not install Python dependencies. Run manually:"
+      err "  $PYTHON3 -m pip install -r $REQUIREMENTS"
+    fi
+  fi
+else
+  warn "requirements.txt not found — skipping Python dependency install"
+fi
+
 # ── directory setup ───────────────────────────────────────────────────────────
 hdr "Creating directories…"
 

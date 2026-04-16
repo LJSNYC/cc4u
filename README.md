@@ -18,10 +18,12 @@ Instead of running `claude` in a plain terminal, run `cc4u` — you get a live C
 ## Install
 
 ```bash
-git clone https://github.com/LJSNYC/cc4u.git
-cd cc4u
+git clone https://github.com/LJSNYC/cc4u.git ~/cc4u
+cd ~/cc4u
 bash install.sh
 ```
+
+> Clone to a permanent location (like `~/cc4u`). The installer pins the `cc4u` command to wherever you clone — moving or deleting the folder will break it.
 
 Then launch:
 
