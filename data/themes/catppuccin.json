@@ -1,0 +1,28 @@
+{
+  "name": "catppuccin",
+  "version": "1.0",
+  "tagline": "Soft pastel, lavender base",
+  "colors": {
+    "bg_primary": "#1e1e2e",
+    "bg_secondary": "#24243e",
+    "bg_widget": "#2a2a4a",
+    "border": "#45475a",
+    "border_active": "#b4befe",
+    "text_primary": "#cdd6f4",
+    "text_secondary": "#a6adc8",
+    "text_muted": "#585b70",
+    "accent_primary": "#b4befe",
+    "accent_secondary": "#94e2d5",
+    "accent_warn": "#f9e2af",
+    "accent_danger": "#f38ba8",
+    "accent_info": "#89b4fa",
+    "status_bar_bg": "#24243e",
+    "status_bar_text": "#a6adc8",
+    "progress_fill": "#b4befe",
+    "progress_empty": "#313244"
+  },
+  "symbols": {
+    "border_style": "rounded",
+    "separator": "line"
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "name": "glass",
+  "version": "1.0",
+  "tagline": "Frosted glass, translucent layers",
+  "ambient_style": "quote",
+  "corner_decorators": false,
+  "colors": {
+    "bg_primary": "#111111", "bg_secondary": "#1a1a1a", "bg_widget": "#1e1e1e",
+    "border": "#444444", "border_active": "#93c5fd",
+    "text_primary": "#e2e8f0", "text_secondary": "#94a3b8", "text_muted": "#334155",
+    "accent_primary": "#93c5fd", "accent_secondary": "#86efac",
+    "accent_warn": "#fde68a", "accent_danger": "#fca5a5", "accent_info": "#c4b5fd",
+    "status_bar_bg": "#1a1a1a", "status_bar_text": "#94a3b8",
+    "progress_fill": "#93c5fd", "progress_empty": "#1e293b",
+    "border_thinking": "#c4b5fd", "border_done": "#86efac", "border_error": "#fca5a5"
+  },
+  "symbols": { "border_style": "rounded", "separator": "dots" }
+}

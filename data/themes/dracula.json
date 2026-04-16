@@ -1,0 +1,28 @@
+{
+  "name": "dracula",
+  "version": "1.0",
+  "tagline": "Dark purple with vivid pinks",
+  "colors": {
+    "bg_primary": "#282a36",
+    "bg_secondary": "#2d2f3f",
+    "bg_widget": "#343746",
+    "border": "#44475a",
+    "border_active": "#ff79c6",
+    "text_primary": "#f8f8f2",
+    "text_secondary": "#bfbfbf",
+    "text_muted": "#6272a4",
+    "accent_primary": "#ff79c6",
+    "accent_secondary": "#50fa7b",
+    "accent_warn": "#f1fa8c",
+    "accent_danger": "#ff5555",
+    "accent_info": "#8be9fd",
+    "status_bar_bg": "#2d2f3f",
+    "status_bar_text": "#bfbfbf",
+    "progress_fill": "#bd93f9",
+    "progress_empty": "#383a4c"
+  },
+  "symbols": {
+    "border_style": "rounded",
+    "separator": "line"
+  }
+}

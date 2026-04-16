@@ -1,0 +1,28 @@
+{
+  "name": "midnight",
+  "version": "1.0",
+  "tagline": "Deep blue-black with cyan accents",
+  "colors": {
+    "bg_primary": "#0d1117",
+    "bg_secondary": "#161b22",
+    "bg_widget": "#1c2128",
+    "border": "#30363d",
+    "border_active": "#388bfd",
+    "text_primary": "#e6edf3",
+    "text_secondary": "#8b949e",
+    "text_muted": "#484f58",
+    "accent_primary": "#388bfd",
+    "accent_secondary": "#3fb950",
+    "accent_warn": "#d29922",
+    "accent_danger": "#f85149",
+    "accent_info": "#58a6ff",
+    "status_bar_bg": "#161b22",
+    "status_bar_text": "#8b949e",
+    "progress_fill": "#388bfd",
+    "progress_empty": "#21262d"
+  },
+  "symbols": {
+    "border_style": "rounded",
+    "separator": "line"
+  }
+}

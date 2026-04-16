@@ -1,0 +1,18 @@
+{
+  "name": "blueprint",
+  "version": "1.0",
+  "tagline": "Graph-paper grid, technical blue",
+  "ambient_style": "quote",
+  "corner_decorators": false,
+  "colors": {
+    "bg_primary": "#0a1628", "bg_secondary": "#0d1e38", "bg_widget": "#0a1628",
+    "border": "#1e4080", "border_active": "#5b9cf6",
+    "text_primary": "#a8c8f8", "text_secondary": "#6888b8", "text_muted": "#1e4080",
+    "accent_primary": "#5b9cf6", "accent_secondary": "#93ffa8",
+    "accent_warn": "#ffd700", "accent_danger": "#ff6b6b", "accent_info": "#7dd3fc",
+    "status_bar_bg": "#0d1e38", "status_bar_text": "#6888b8",
+    "progress_fill": "#5b9cf6", "progress_empty": "#0d1e38",
+    "border_thinking": "#7dd3fc", "border_done": "#93ffa8", "border_error": "#ff6b6b"
+  },
+  "symbols": { "border_style": "square", "separator": "dots" }
+}

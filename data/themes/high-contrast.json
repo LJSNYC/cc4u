@@ -1,0 +1,28 @@
+{
+  "name": "high-contrast",
+  "version": "1.0",
+  "tagline": "Pure black + bright white + yellow",
+  "colors": {
+    "bg_primary": "#000000",
+    "bg_secondary": "#0a0a0a",
+    "bg_widget": "#111111",
+    "border": "#555555",
+    "border_active": "#ffff00",
+    "text_primary": "#ffffff",
+    "text_secondary": "#cccccc",
+    "text_muted": "#666666",
+    "accent_primary": "#ffff00",
+    "accent_secondary": "#00ff00",
+    "accent_warn": "#ffaa00",
+    "accent_danger": "#ff0000",
+    "accent_info": "#00ffff",
+    "status_bar_bg": "#0a0a0a",
+    "status_bar_text": "#cccccc",
+    "progress_fill": "#ffff00",
+    "progress_empty": "#333333"
+  },
+  "symbols": {
+    "border_style": "heavy",
+    "separator": "line"
+  }
+}

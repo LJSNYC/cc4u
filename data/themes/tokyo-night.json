@@ -1,0 +1,18 @@
+{
+  "name": "tokyo-night",
+  "version": "1.0",
+  "tagline": "Soft blue-purple, calm and readable",
+  "ambient_style": "quote",
+  "corner_decorators": false,
+  "colors": {
+    "bg_primary": "#1a1b26", "bg_secondary": "#16161e", "bg_widget": "#1f2335",
+    "border": "#2a2b3d", "border_active": "#7aa2f7",
+    "text_primary": "#a9b1d6", "text_secondary": "#787c99", "text_muted": "#3b3d5c",
+    "accent_primary": "#7aa2f7", "accent_secondary": "#9ece6a",
+    "accent_warn": "#e0af68", "accent_danger": "#f7768e", "accent_info": "#bb9af7",
+    "status_bar_bg": "#16161e", "status_bar_text": "#787c99",
+    "progress_fill": "#7aa2f7", "progress_empty": "#2a2b3d",
+    "border_thinking": "#bb9af7", "border_done": "#9ece6a", "border_error": "#f7768e"
+  },
+  "symbols": { "border_style": "rounded", "separator": "dots" }
+}

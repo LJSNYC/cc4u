@@ -1,0 +1,28 @@
+{
+  "name": "solarized",
+  "version": "1.0",
+  "tagline": "Warm beige with muted blue/yellow",
+  "colors": {
+    "bg_primary": "#002b36",
+    "bg_secondary": "#073642",
+    "bg_widget": "#073642",
+    "border": "#586e75",
+    "border_active": "#268bd2",
+    "text_primary": "#839496",
+    "text_secondary": "#657b83",
+    "text_muted": "#586e75",
+    "accent_primary": "#268bd2",
+    "accent_secondary": "#2aa198",
+    "accent_warn": "#b58900",
+    "accent_danger": "#dc322f",
+    "accent_info": "#6c71c4",
+    "status_bar_bg": "#073642",
+    "status_bar_text": "#657b83",
+    "progress_fill": "#268bd2",
+    "progress_empty": "#0a3f4d"
+  },
+  "symbols": {
+    "border_style": "rounded",
+    "separator": "line"
+  }
+}

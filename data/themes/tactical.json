@@ -1,0 +1,18 @@
+{
+  "name": "tactical",
+  "version": "1.0",
+  "tagline": "Military HUD — olive green, fixed-width numerals",
+  "ambient_style": "matrix_rain",
+  "corner_decorators": true,
+  "colors": {
+    "bg_primary": "#050505", "bg_secondary": "#060d04", "bg_widget": "#050505",
+    "border": "#4a7a2a", "border_active": "#c0ff80",
+    "text_primary": "#8ab870", "text_secondary": "#4a7a2a", "text_muted": "#2a4a1a",
+    "accent_primary": "#c0ff80", "accent_secondary": "#ffcc00",
+    "accent_warn": "#ffcc00", "accent_danger": "#ff4444", "accent_info": "#6ab040",
+    "status_bar_bg": "#060d04", "status_bar_text": "#4a7a2a",
+    "progress_fill": "#6ab040", "progress_empty": "#1a2a10",
+    "border_thinking": "#00aaff", "border_done": "#ffcc00", "border_error": "#ff4444"
+  },
+  "symbols": { "border_style": "square", "separator": "line" }
+}

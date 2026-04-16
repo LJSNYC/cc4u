@@ -1,0 +1,108 @@
+/* cc4u/cc4u.tcss */
+
+/* ── Main Layout ─────────────────────────────────────── */
+#main-layout {
+    width: 100%;
+    height: 1fr;
+}
+
+/* ── Column Containers ───────────────────────────────── */
+ColumnContainer {
+    height: 100%;
+}
+
+/* ── WidgetSlot ──────────────────────────────────────── */
+WidgetSlot {
+    width: 100%;
+    layout: vertical;
+}
+
+/* ── Widget shell (all CC4UWidget instances) ─────────── */
+.cc4u-widget {
+    border: solid $widget-border;
+    background: $surface;
+    color: $text;
+    padding: 0 1;
+    overflow: hidden hidden;
+    height: 100%;
+}
+
+/* In edit mode the slot has sibling buttons — use flex so buttons aren't pushed off-screen */
+WidgetSlot > .cc4u-widget {
+    height: 1fr;
+}
+
+.cc4u-widget > .widget-title {
+    color: $primary;
+    text-style: bold;
+    height: 1;
+}
+
+.cc4u-widget > .widget-body {
+    width: 100%;
+    height: 1fr;
+}
+
+/* ── PTY Pane ────────────────────────────────────────── */
+#pty-pane {
+    background: $background;
+    border: solid $primary-background;
+    width: 1fr;
+    height: 100%;
+}
+
+/* ── Status Bar ──────────────────────────────────────── */
+#status-bar {
+    dock: bottom;
+    height: 1;
+    background: $primary-background;
+    color: $text-muted;
+    layout: horizontal;
+    padding: 0 1;
+}
+
+#status-info {
+    width: 1fr;
+    content-align: right middle;
+    color: $text-muted;
+}
+
+/* ── Edit mode ───────────────────────────────────────── */
+.edit-mode .cc4u-widget {
+    border: dashed $warning;
+}
+
+/* ── Edit mode buttons ───────────────────────────────── */
+.swap-btn {
+    width: 100%;
+    height: 1;
+    background: $accent;
+    color: $background;
+    text-style: bold;
+    content-align: center middle;
+}
+
+.move-up-btn {
+    width: 50%;
+    height: 1;
+    background: $primary-background;
+    color: $text-muted;
+    content-align: center middle;
+}
+
+.move-down-btn {
+    width: 50%;
+    height: 1;
+    background: $primary-background;
+    color: $text-muted;
+    content-align: center middle;
+}
+
+.remove-btn {
+    width: 100%;
+    height: 1;
+    background: $error;
+    color: $background;
+    text-style: bold;
+    content-align: center middle;
+}

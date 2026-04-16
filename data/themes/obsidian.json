@@ -1,0 +1,18 @@
+{
+  "name": "obsidian",
+  "version": "1.0",
+  "tagline": "Pure black, single gold accent",
+  "ambient_style": "quote",
+  "corner_decorators": false,
+  "colors": {
+    "bg_primary": "#000000", "bg_secondary": "#0a0a0a", "bg_widget": "#000000",
+    "border": "#222222", "border_active": "#d4af37",
+    "text_primary": "#e0e0e0", "text_secondary": "#666666", "text_muted": "#333333",
+    "accent_primary": "#d4af37", "accent_secondary": "#aaaaaa",
+    "accent_warn": "#c87000", "accent_danger": "#cc3333", "accent_info": "#888888",
+    "status_bar_bg": "#0a0a0a", "status_bar_text": "#666666",
+    "progress_fill": "#d4af37", "progress_empty": "#111111",
+    "border_thinking": "#aaaaaa", "border_done": "#d4af37", "border_error": "#cc3333"
+  },
+  "symbols": { "border_style": "square", "separator": "line" }
+}

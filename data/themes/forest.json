@@ -1,0 +1,28 @@
+{
+  "name": "forest",
+  "version": "1.0",
+  "tagline": "Dark green with amber highlights",
+  "colors": {
+    "bg_primary": "#1a2414",
+    "bg_secondary": "#1e2e18",
+    "bg_widget": "#24351e",
+    "border": "#3a5a2e",
+    "border_active": "#c8a84b",
+    "text_primary": "#d4e4c8",
+    "text_secondary": "#8ba67a",
+    "text_muted": "#4a6940",
+    "accent_primary": "#c8a84b",
+    "accent_secondary": "#7ec87e",
+    "accent_warn": "#e8a840",
+    "accent_danger": "#d45050",
+    "accent_info": "#6eb86e",
+    "status_bar_bg": "#1e2e18",
+    "status_bar_text": "#8ba67a",
+    "progress_fill": "#7ec87e",
+    "progress_empty": "#2a3d22"
+  },
+  "symbols": {
+    "border_style": "rounded",
+    "separator": "line"
+  }
+}

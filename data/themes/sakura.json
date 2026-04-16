@@ -1,0 +1,18 @@
+{
+  "name": "sakura",
+  "version": "1.0",
+  "tagline": "Dusty rose and lavender, soft dark",
+  "ambient_style": "quote",
+  "corner_decorators": false,
+  "colors": {
+    "bg_primary": "#1a1020", "bg_secondary": "#120d18", "bg_widget": "#1a1020",
+    "border": "#c97eb2", "border_active": "#f0a0d0",
+    "text_primary": "#e8d5e8", "text_secondary": "#a070a0", "text_muted": "#3d1a30",
+    "accent_primary": "#f0a0d0", "accent_secondary": "#9fffb8",
+    "accent_warn": "#ffd4a0", "accent_danger": "#ff8080", "accent_info": "#c8a8ff",
+    "status_bar_bg": "#120d18", "status_bar_text": "#a070a0",
+    "progress_fill": "#c97eb2", "progress_empty": "#2a1020",
+    "border_thinking": "#c8a8ff", "border_done": "#9fffb8", "border_error": "#ff8080"
+  },
+  "symbols": { "border_style": "rounded", "separator": "dots" }
+}

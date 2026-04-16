@@ -1,0 +1,18 @@
+{
+  "name": "amber",
+  "version": "1.0",
+  "tagline": "Warm amber with CRT scanlines",
+  "ambient_style": "crt_static",
+  "corner_decorators": false,
+  "colors": {
+    "bg_primary": "#1a0f00", "bg_secondary": "#221400", "bg_widget": "#1a0f00",
+    "border": "#c87000", "border_active": "#ffd700",
+    "text_primary": "#ffb347", "text_secondary": "#cc8800", "text_muted": "#5a3800",
+    "accent_primary": "#ffd700", "accent_secondary": "#ffb347",
+    "accent_warn": "#ff8c00", "accent_danger": "#ff4444", "accent_info": "#ffcc44",
+    "status_bar_bg": "#221400", "status_bar_text": "#cc8800",
+    "progress_fill": "#ffb347", "progress_empty": "#3d2200",
+    "border_thinking": "#ffcc44", "border_done": "#ffd700", "border_error": "#ff4444"
+  },
+  "symbols": { "border_style": "square", "separator": "line" }
+}

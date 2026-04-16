@@ -1,0 +1,18 @@
+{
+  "name": "synthwave",
+  "version": "1.0",
+  "tagline": "Pink, cyan, mint — 80s grid energy",
+  "ambient_style": "gradient_wave",
+  "corner_decorators": false,
+  "colors": {
+    "bg_primary": "#1a0533", "bg_secondary": "#0d001f", "bg_widget": "#1a0533",
+    "border": "#a020f0", "border_active": "#ff71ce",
+    "text_primary": "#f0b8ff", "text_secondary": "#a060cc", "text_muted": "#3d0070",
+    "accent_primary": "#ff71ce", "accent_secondary": "#05ffa1",
+    "accent_warn": "#fffb96", "accent_danger": "#ff4444", "accent_info": "#01cdfe",
+    "status_bar_bg": "#0d001f", "status_bar_text": "#a060cc",
+    "progress_fill": "#ff71ce", "progress_empty": "#2a0050",
+    "border_thinking": "#01cdfe", "border_done": "#05ffa1", "border_error": "#ff4444"
+  },
+  "symbols": { "border_style": "rounded", "separator": "line" }
+}

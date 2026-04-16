@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+# CC4U — launch the Textual dashboard
+exec python3 "$(dirname "$(realpath "$0")")/../cc4u.py" "$@"

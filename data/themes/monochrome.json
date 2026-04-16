@@ -1,0 +1,28 @@
+{
+  "name": "monochrome",
+  "version": "1.0",
+  "tagline": "All shades of grey",
+  "colors": {
+    "bg_primary": "#1a1a1a",
+    "bg_secondary": "#222222",
+    "bg_widget": "#2a2a2a",
+    "border": "#444444",
+    "border_active": "#aaaaaa",
+    "text_primary": "#e0e0e0",
+    "text_secondary": "#aaaaaa",
+    "text_muted": "#555555",
+    "accent_primary": "#ffffff",
+    "accent_secondary": "#cccccc",
+    "accent_warn": "#999999",
+    "accent_danger": "#dddddd",
+    "accent_info": "#bbbbbb",
+    "status_bar_bg": "#222222",
+    "status_bar_text": "#aaaaaa",
+    "progress_fill": "#cccccc",
+    "progress_empty": "#333333"
+  },
+  "symbols": {
+    "border_style": "minimal",
+    "separator": "dotted"
+  }
+}

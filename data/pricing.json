@@ -1,0 +1,31 @@
+{
+  "_note": "Claude API pricing reference for cost estimation. Update as pricing changes.",
+  "_last_updated": "2025-01-01",
+  "models": {
+    "claude-3-5-sonnet-20241022": {
+      "input_per_1m": 3.00,
+      "output_per_1m": 15.00
+    },
+    "claude-3-5-haiku-20241022": {
+      "input_per_1m": 0.80,
+      "output_per_1m": 4.00
+    },
+    "claude-3-opus-20240229": {
+      "input_per_1m": 15.00,
+      "output_per_1m": 75.00
+    },
+    "claude-sonnet-4-20250514": {
+      "input_per_1m": 3.00,
+      "output_per_1m": 15.00
+    },
+    "claude-haiku-4-20250514": {
+      "input_per_1m": 0.80,
+      "output_per_1m": 4.00
+    },
+    "claude-opus-4-20250514": {
+      "input_per_1m": 15.00,
+      "output_per_1m": 75.00
+    }
+  },
+  "default_model": "claude-sonnet-4-20250514"
+}

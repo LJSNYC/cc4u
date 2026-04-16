@@ -1,0 +1,28 @@
+{
+  "name": "nord",
+  "version": "1.0",
+  "tagline": "Arctic bluish-grey palette",
+  "colors": {
+    "bg_primary": "#2e3440",
+    "bg_secondary": "#3b4252",
+    "bg_widget": "#3b4252",
+    "border": "#4c566a",
+    "border_active": "#88c0d0",
+    "text_primary": "#eceff4",
+    "text_secondary": "#d8dee9",
+    "text_muted": "#4c566a",
+    "accent_primary": "#88c0d0",
+    "accent_secondary": "#a3be8c",
+    "accent_warn": "#ebcb8b",
+    "accent_danger": "#bf616a",
+    "accent_info": "#81a1c1",
+    "status_bar_bg": "#3b4252",
+    "status_bar_text": "#d8dee9",
+    "progress_fill": "#88c0d0",
+    "progress_empty": "#434c5e"
+  },
+  "symbols": {
+    "border_style": "rounded",
+    "separator": "line"
+  }
+}

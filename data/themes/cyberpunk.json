@@ -1,0 +1,18 @@
+{
+  "name": "cyberpunk",
+  "version": "1.0",
+  "tagline": "Hot pink and electric blue neon",
+  "ambient_style": "gradient_wave",
+  "corner_decorators": false,
+  "colors": {
+    "bg_primary": "#0a0a1a", "bg_secondary": "#0d0d22", "bg_widget": "#0f0f28",
+    "border": "#ff0090", "border_active": "#00d4ff",
+    "text_primary": "#e0e0ff", "text_secondary": "#8888cc", "text_muted": "#333366",
+    "accent_primary": "#00d4ff", "accent_secondary": "#ff0090",
+    "accent_warn": "#ffcc00", "accent_danger": "#ff3333", "accent_info": "#00ffff",
+    "status_bar_bg": "#0d0d22", "status_bar_text": "#8888cc",
+    "progress_fill": "#ff0090", "progress_empty": "#1a1a33",
+    "border_thinking": "#00d4ff", "border_done": "#00ff90", "border_error": "#ff3333"
+  },
+  "symbols": { "border_style": "square", "separator": "line" }
+}
