@@ -69,7 +69,8 @@ if os.path.exists(session_path):
 else:
     session = {}
 session['claude_state'] = 'done'
-session['idle_since'] = time.time()
+from datetime import datetime
+session['idle_since'] = datetime.now().isoformat()
 with open(session_path, 'w') as f:
     json.dump(session, f, indent=2)
 " 2>/dev/null

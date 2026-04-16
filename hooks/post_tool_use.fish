@@ -89,8 +89,15 @@ for line in new_bytes.decode('utf-8', errors='ignore').split('\n'):
     except Exception:
         pass
 
-# Load pricing
-pricing_path = os.path.expanduser('~/cc4u/data/pricing.json')
+# Load pricing — check standard install location first, then common clone paths
+pricing_path = None
+for candidate in [
+    os.path.expanduser('~/.local/share/cc4u/pricing.json'),
+    os.path.expanduser('~/cc4u/data/pricing.json'),
+]:
+    if os.path.exists(candidate):
+        pricing_path = candidate
+        break
 
 input_rate = 3.0    # per million, default (sonnet)
 output_rate = 15.0  # per million, default
@@ -98,6 +105,8 @@ cache_create_rate = 3.75  # per million (1.25x input)
 cache_read_rate = 0.30    # per million (0.1x input)
 
 try:
+    if not pricing_path:
+        raise FileNotFoundError
     with open(pricing_path) as f:
         pricing = json.load(f)
     # Try to match model from session

@@ -281,6 +281,12 @@ ok "Installed binary → $BIN_DEST"
 # ── install data files ────────────────────────────────────────────────────────
 hdr "Copying CC4U data files…"
 
+# Pricing data (needed by hooks for cost calculation)
+if [[ -f "$PROJECT_ROOT/data/pricing.json" ]]; then
+  cp "$PROJECT_ROOT/data/pricing.json" "$DATA_DIR/pricing.json"
+  ok "Pricing data → $DATA_DIR/pricing.json"
+fi
+
 # Widgets
 if [[ -d "$PROJECT_ROOT/lib/widgets" ]]; then
   cp -r "$PROJECT_ROOT/lib/widgets/." "$DATA_DIR/widgets/"
