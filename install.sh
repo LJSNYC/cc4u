@@ -312,12 +312,12 @@ else
 fi
 
 # Hooks
-if [[ -d "$PROJECT_ROOT/lib/hooks" ]]; then
-  cp "$PROJECT_ROOT"/lib/hooks/*.fish "$DATA_DIR/hooks/" 2>/dev/null || true
+if [[ -d "$PROJECT_ROOT/hooks" ]]; then
+  cp "$PROJECT_ROOT"/hooks/*.fish "$DATA_DIR/hooks/" 2>/dev/null || true
   chmod +x "$DATA_DIR"/hooks/*.fish 2>/dev/null || true
   ok "Hooks → $DATA_DIR/hooks/"
 else
-  warn "lib/hooks/ not found (skipped)"
+  warn "hooks/ not found (skipped)"
 fi
 
 # ── register hooks in ~/.claude/settings.json ─────────────────────────────────
@@ -468,10 +468,9 @@ else
 fi
 
 echo
-echo "  Next step: run  ${C_BLD}cc4u setup${C_RST}  to configure widgets and themes."
-echo "  Then run  ${C_BLD}cc4u start${C_RST}  to launch CC4U."
+echo "  Run  ${C_BLD}cc4u${C_RST}  to launch. The setup wizard will open on first run."
 echo
-echo "  Need help? Run  ${C_BLD}cc4u doctor${C_RST}  to diagnose issues."
+echo "  To reset and re-run the wizard:  ${C_BLD}rm ~/.config/cc4u/config.json && cc4u${C_RST}"
 echo
 
 exit $VERIFY_FAIL
