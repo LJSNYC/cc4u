@@ -84,6 +84,8 @@ class ColumnContainer(Widget):
     ColumnContainer { layout: vertical; height: 100%; }
     """
 
+    _counter: int = 0  # global counter — ensures slot IDs are always unique after removes
+
     def __init__(self, side: str, widget_types: list, heights: list, **kwargs):
         super().__init__(**kwargs)
         self._side = side
@@ -91,8 +93,9 @@ class ColumnContainer(Widget):
         self._heights = list(heights)
 
     def compose(self) -> ComposeResult:
-        for i, (wtype, weight) in enumerate(zip(self._widget_types, self._heights)):
-            yield WidgetSlot(wtype, weight, id=f"slot-{self._side}-{i}")
+        for wtype, weight in zip(self._widget_types, self._heights):
+            ColumnContainer._counter += 1
+            yield WidgetSlot(wtype, weight, id=f"slot-{self._side}-{ColumnContainer._counter}")
 
     def get_slots(self) -> list:
         return list(self.query(WidgetSlot))
@@ -104,8 +107,8 @@ class ColumnContainer(Widget):
         return [s._weight for s in self.get_slots()]
 
     def add_widget_slot(self, wtype: str) -> None:
-        n = len(self.get_slots())
-        self.mount(WidgetSlot(wtype, 1, id=f"slot-{self._side}-{n}"))
+        ColumnContainer._counter += 1
+        self.mount(WidgetSlot(wtype, 1, id=f"slot-{self._side}-{ColumnContainer._counter}"))
 
 
 class StatusBtn(Static):
@@ -370,6 +373,11 @@ class CC4UApp(App):
             both_full = False
 
         if both_full:
+            self.notify(
+                "Both columns are full (6 widgets each). Pick a new widget, then choose which one to replace.",
+                severity="information",
+                timeout=5,
+            )
             # Step 1: pick new type. Step 2: pick which existing slot to replace.
             def _on_pick_new(new_type: str | None) -> None:
                 if not new_type:
@@ -403,7 +411,13 @@ class CC4UApp(App):
                 right_col = self.query_one("#right-col", ColumnContainer)
                 lc = len(left_col.get_slots())
                 rc = len(right_col.get_slots())
+                if lc >= 6 and rc >= 6:
+                    self.notify("Both columns are full.", severity="warning", timeout=3)
+                    return
                 target = left_col if (lc <= rc and lc < 6) else right_col
+                # Defensive: if chosen target is already full, use the other side
+                if len(target.get_slots()) >= 6:
+                    target = right_col if target is left_col else left_col
                 target.add_widget_slot(wtype)
                 self._save_layout()
             except Exception as e:
@@ -411,7 +425,7 @@ class CC4UApp(App):
 
         self.push_screen(WidgetPickerModal(unused, title="Add Widget"), _on_pick)
 
-    def on__edit_btn_pressed(self, event: _EditBtn.Pressed) -> None:
+    async def on__edit_btn_pressed(self, event: _EditBtn.Pressed) -> None:
         btn = event.btn
         slot = btn.parent
         if not isinstance(slot, WidgetSlot):
@@ -423,7 +437,7 @@ class CC4UApp(App):
         elif "move-down-btn" in btn.classes:
             self._move_slot(slot, 1)
         elif "remove-btn" in btn.classes:
-            slot.remove()
+            await slot.remove()  # await so _save_layout sees the updated DOM
             self._save_layout()
         event.stop()
 
