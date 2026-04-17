@@ -303,11 +303,21 @@ class CC4UApp(App):
         left_w = self.config.get("left_col_width", 16)
         right_w = self.config.get("right_col_width", 16)
         try:
-            self.query_one("#left-col").styles.width = f"{left_w}%"
+            left_col = self.query_one("#left-col")
+            if left_w == 0:
+                left_col.display = False
+            else:
+                left_col.display = True
+                left_col.styles.width = f"{left_w}%"
         except Exception:
             pass
         try:
-            self.query_one("#right-col").styles.width = f"{right_w}%"
+            right_col = self.query_one("#right-col")
+            if right_w == 0:
+                right_col.display = False
+            else:
+                right_col.display = True
+                right_col.styles.width = f"{right_w}%"
         except Exception:
             pass
 
@@ -429,6 +439,9 @@ class CC4UApp(App):
     async def on__edit_btn_pressed(self, event: _EditBtn.Pressed) -> None:
         btn = event.btn
         slot = btn.parent
+        # move-up/down buttons are wrapped in a .move-btns Horizontal container
+        if not isinstance(slot, WidgetSlot):
+            slot = slot.parent
         if not isinstance(slot, WidgetSlot):
             return
         if "swap-btn" in btn.classes:

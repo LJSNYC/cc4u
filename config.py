@@ -36,8 +36,19 @@ def auto_layout(
     left_cols  = pty_col
     right_cols = grid_columns - pty_col - pty_col_span
 
-    # Edge case: both sides have zero columns → use a balanced default
+    # Both sides zero = PTY fills full width (minimal preset).
+    # If no sidebar widgets were selected, return a clean full-width layout.
+    # If the user did select widgets despite choosing minimal, fall back to balanced.
     if left_cols == 0 and right_cols == 0:
+        if not extras:
+            return {
+                "left_widgets":    [],
+                "right_widgets":   [],
+                "left_col_width":  0,
+                "right_col_width": 0,
+                "left_heights":    [],
+                "right_heights":   [],
+            }
         left_cols  = 2
         right_cols = 2
 

@@ -47,7 +47,7 @@ class LayoutPresetScreen(Screen):
         self._initial_preset = initial_preset  # e.g. "balanced", "minimal", "power"
 
     def compose(self) -> ComposeResult:
-        yield Static("[bold]Choose a starting layout[/bold]\n[dim]You can rearrange everything later with Ctrl+E[/dim]\n")
+        yield Static("[bold]Choose a starting layout[/bold]\n[dim]You can rearrange everything later with the EDIT button[/dim]\n")
         with RadioSet(id="preset-radio"):
             for key, preset in PRESETS.items():
                 pre_select = (key == self._initial_preset) if self._initial_preset else False

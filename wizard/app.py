@@ -58,6 +58,10 @@ class WizardApp(App):
         preset_key, widgets = result
         self._wiz_preset = preset_key
         self._cfg["widgets"] = widgets
+        # On first forward pass, pre-populate picker with preset's sidebar widgets.
+        # On back-nav, restore whatever the user had previously selected.
+        if not self._wiz_widgets:
+            self._wiz_widgets = [w["type"] for w in widgets if w["type"] != "pty_pane"]
         self.push_screen(WidgetPickerScreen(initial_types=self._wiz_widgets), self._after_widget_picker)
 
     def _after_widget_picker(self, selected_types) -> None:
@@ -70,7 +74,7 @@ class WizardApp(App):
 
     def _after_theme(self, theme) -> None:
         if theme is None:
-            self.push_screen(WidgetPickerScreen(), self._after_widget_picker)
+            self.push_screen(WidgetPickerScreen(initial_types=self._wiz_widgets), self._after_widget_picker)
             return
         self._cfg["theme"] = theme
 
