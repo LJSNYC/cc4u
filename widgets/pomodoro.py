@@ -1,3 +1,4 @@
+import os
 from textual.widgets import Static
 from textual.reactive import reactive
 
@@ -29,10 +30,12 @@ class PomodoroWidget(CC4UWidget):
                 self.sessions += 1
                 self.phase = "break"
                 self.remaining = self.BREAK_SECONDS
+                os.system('osascript -e \'display notification "Break time!" with title "CC4U Pomodoro"\'')
             else:
                 self.phase = "work"
                 self.remaining = self.WORK_SECONDS
-            self.running = False
+                os.system('osascript -e \'display notification "Back to work!" with title "CC4U Pomodoro"\'')
+            # keep running across phase transitions
 
     def on_click(self) -> None:
         self.running = not self.running

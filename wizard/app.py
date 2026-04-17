@@ -29,13 +29,17 @@ class WizardApp(App):
         super().__init__(**kwargs)
         self._cfg = existing_config or cfg_module.default_config()
         self.result_config: Optional[dict] = None
+        # Preserve wizard state across back-navigation
+        self._wiz_name: str = self._cfg.get("user_name", "")
+        self._wiz_preset: str = ""
+        self._wiz_widgets: list = []
 
     def on_mount(self) -> None:
         self.push_screen(WelcomeScreen(), self._after_welcome)
 
     def _after_welcome(self, result) -> None:
         if result:
-            self.push_screen(IdentityScreen(), self._after_identity)
+            self.push_screen(IdentityScreen(initial_name=self._wiz_name), self._after_identity)
         else:
             self.exit()
 
@@ -43,22 +47,26 @@ class WizardApp(App):
         if name is None:
             self.push_screen(WelcomeScreen(), self._after_welcome)
             return
-        self._cfg["user_name"] = name or "user"
-        self.push_screen(LayoutPresetScreen(), self._after_layout)
+        self._wiz_name = name or "user"
+        self._cfg["user_name"] = self._wiz_name
+        self.push_screen(LayoutPresetScreen(initial_preset=self._wiz_preset), self._after_layout)
 
-    def _after_layout(self, widgets) -> None:
-        if widgets is None:
-            self.push_screen(IdentityScreen(), self._after_identity)
+    def _after_layout(self, result) -> None:
+        if result is None:
+            self.push_screen(IdentityScreen(initial_name=self._wiz_name), self._after_identity)
             return
+        preset_key, widgets = result
+        self._wiz_preset = preset_key
         self._cfg["widgets"] = widgets
-        self.push_screen(WidgetPickerScreen(), self._after_widget_picker)
+        self.push_screen(WidgetPickerScreen(initial_types=self._wiz_widgets), self._after_widget_picker)
 
     def _after_widget_picker(self, selected_types) -> None:
         if selected_types is None:
-            self.push_screen(LayoutPresetScreen(), self._after_layout)
+            self.push_screen(LayoutPresetScreen(initial_preset=self._wiz_preset), self._after_layout)
             return
+        self._wiz_widgets = selected_types
         self._cfg["_selected_widget_types"] = selected_types
-        self.push_screen(ThemePickerScreen(), self._after_theme)
+        self.push_screen(ThemePickerScreen(initial_theme=self._cfg.get("theme", "tactical")), self._after_theme)
 
     def _after_theme(self, theme) -> None:
         if theme is None:

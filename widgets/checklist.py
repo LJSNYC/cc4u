@@ -37,7 +37,7 @@ class ChecklistWidget(CC4UWidget):
         if event.y >= add_row:
             self._start_add()
             return
-        idx = event.y - 1
+        idx = max(0, min(event.y - 1, len(self._items) - 1))
         if 0 <= idx < len(self._items):
             self._items[idx]["done"] = not self._items[idx].get("done", False)
             state_module.save_widget_data("checklist", {"items": self._items})

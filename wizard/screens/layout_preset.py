@@ -42,11 +42,20 @@ PRESETS = {
 class LayoutPresetScreen(Screen):
     BINDINGS = [Binding("escape", "back", "Back")]
 
+    def __init__(self, initial_preset: str = "", **kwargs):
+        super().__init__(**kwargs)
+        self._initial_preset = initial_preset  # e.g. "balanced", "minimal", "power"
+
     def compose(self) -> ComposeResult:
         yield Static("[bold]Choose a starting layout[/bold]\n[dim]You can rearrange everything later with Ctrl+E[/dim]\n")
         with RadioSet(id="preset-radio"):
             for key, preset in PRESETS.items():
-                yield RadioButton(f"{preset['label']} — {preset['desc']}", id=f"preset-{key}")
+                pre_select = (key == self._initial_preset) if self._initial_preset else False
+                yield RadioButton(
+                    f"{preset['label']} — {preset['desc']}",
+                    id=f"preset-{key}",
+                    value=pre_select,
+                )
         yield Static("")
         yield Button("Continue →", id="continue-btn", variant="primary")
 
@@ -56,9 +65,9 @@ class LayoutPresetScreen(Screen):
             selected = radio_set.pressed_button
             if selected:
                 key = selected.id.replace("preset-", "")
-                self.dismiss(PRESETS[key]["widgets"])
+                self.dismiss((key, PRESETS[key]["widgets"]))
             else:
-                self.dismiss(PRESETS["balanced"]["widgets"])
+                self.dismiss(("balanced", PRESETS["balanced"]["widgets"]))
 
     def action_back(self) -> None:
         self.dismiss(None)

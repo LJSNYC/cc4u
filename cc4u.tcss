@@ -82,6 +82,12 @@ WidgetSlot > .cc4u-widget {
     content-align: center middle;
 }
 
+.move-btns {
+    width: 100%;
+    height: 1;
+    layout: horizontal;
+}
+
 .move-up-btn {
     width: 50%;
     height: 1;

@@ -35,6 +35,7 @@ class ProjectNotesWidget(CC4UWidget):
             id="notes-area",
         )
         self.mount(ta)
+        self.mount(Static("[dim]Esc to save[/dim]", id="notes-hint"))
         self.call_after_refresh(self._focus_area)
 
     def _focus_area(self) -> None:
@@ -57,6 +58,10 @@ class ProjectNotesWidget(CC4UWidget):
         state_module.save_widget_data("project_notes", {"notes": self._notes})
         try:
             self.query_one("#notes-area", TextArea).remove()
+        except Exception:
+            pass
+        try:
+            self.query_one("#notes-hint", Static).remove()
         except Exception:
             pass
         try:

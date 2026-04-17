@@ -64,15 +64,16 @@ class WidgetSlot(Widget):
     def show_edit_controls(self) -> None:
         if not self.query(".swap-btn"):
             self.mount(_EditBtn("⟳ swap", classes="swap-btn"))
-        if not self.query(".move-up-btn"):
-            self.mount(_EditBtn("↑", classes="move-up-btn"))
-        if not self.query(".move-down-btn"):
-            self.mount(_EditBtn("↓", classes="move-down-btn"))
+        if not self.query(".move-btns"):
+            row = Horizontal(classes="move-btns")
+            self.mount(row)
+            row.mount(_EditBtn("↑", classes="move-up-btn"))
+            row.mount(_EditBtn("↓", classes="move-down-btn"))
         if not self.query(".remove-btn"):
             self.mount(_EditBtn("✕ remove", classes="remove-btn"))
 
     def hide_edit_controls(self) -> None:
-        for cls in (".swap-btn", ".move-up-btn", ".move-down-btn", ".remove-btn"):
+        for cls in (".swap-btn", ".move-btns", ".remove-btn"):
             for b in self.query(cls):
                 b.remove()
 

@@ -9,8 +9,13 @@ import themes as themes_module
 class ThemePickerScreen(Screen):
     BINDINGS = [Binding("escape", "back", "Back")]
 
+    def __init__(self, initial_theme: str = "tactical", **kwargs):
+        super().__init__(**kwargs)
+        self._initial_theme = initial_theme
+
     def compose(self) -> ComposeResult:
         available = themes_module.list_themes()
+        default = self._initial_theme if self._initial_theme in available else "tactical"
         yield Static("[bold]Choose a theme[/bold]\n")
         with RadioSet(id="theme-radio"):
             for name in available:
@@ -20,7 +25,7 @@ class ThemePickerScreen(Screen):
                     label = f"{name}  [dim]{tagline}[/dim]" if tagline else name
                 except Exception:
                     label = name
-                yield RadioButton(label, id=f"theme-{name}", value=(name == "tactical"))
+                yield RadioButton(label, id=f"theme-{name}", value=(name == default))
         yield Static("")
         yield Button("Launch →", id="launch-btn", variant="success")
 

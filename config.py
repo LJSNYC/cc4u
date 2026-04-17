@@ -147,7 +147,7 @@ def load() -> dict:
             data["right_heights"] = [1] * len(data["right_widgets"])
 
         return data
-    except (json.JSONDecodeError, OSError):
+    except Exception:
         return default_config()
 
 

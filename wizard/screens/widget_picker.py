@@ -14,7 +14,7 @@ ALL_WIDGETS = [
     ("cost_tracker",   "Cost Tracker",   True,
      "Running USD cost and total token count for the active Claude session."),
     ("pomodoro",       "Pomodoro Timer", True,
-     "25/5 Pomodoro timer. Click to start or pause. Notifies you when each interval ends."),
+     "25/5 Pomodoro timer. Click to start or pause. Auto-advances phases with macOS notification."),
     ("cpu_memory",     "CPU / Memory",   True,
      "System CPU percentage and RAM usage. Lightweight — updates every 2 s."),
     ("tool_log",       "Tool Log",       False,
@@ -62,6 +62,10 @@ _DESC_MAP = {wtype: (label, desc) for wtype, label, _, desc in ALL_WIDGETS}
 
 class WidgetPickerScreen(Screen):
     BINDINGS = [Binding("escape", "back", "Back")]
+
+    def __init__(self, initial_types=None, **kwargs):
+        super().__init__(**kwargs)
+        self._initial_types = set(initial_types) if initial_types else None
 
     CSS = """
     WidgetPickerScreen {
@@ -113,7 +117,8 @@ class WidgetPickerScreen(Screen):
             with Horizontal(id="picker-columns"):
                 with VerticalScroll(id="picker-left"):
                     for wtype, label, default, _ in ALL_WIDGETS:
-                        yield Checkbox(label, value=default, id=f"cb-{wtype}")
+                        checked = (wtype in self._initial_types) if self._initial_types is not None else default
+                        yield Checkbox(label, value=checked, id=f"cb-{wtype}")
                 with Vertical(id="picker-right"):
                     yield Static("", id="desc-name")
                     yield Static(

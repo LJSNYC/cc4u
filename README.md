@@ -81,7 +81,7 @@ Three-column layout: left sidebar · Claude Code PTY · right sidebar.
 
 ## Themes (19 built-in)
 
-Tactical, Midnight, Forest, Ocean, Ember, Arctic, Neon, Dusk, Dawn, Sage, Rose, Slate, Copper, Violet, Cobalt, Crimson, Moss, Sand, Storm.
+Amber, Blueprint, Catppuccin, Cyberpunk, Dracula, Forest, Glass, Gruvbox, Hacker, High-Contrast, Midnight, Monochrome, Nord, Obsidian, Sakura, Solarized, Synthwave, Tactical, Tokyo-Night.
 
 Switch themes live with the **THEME** button in the status bar.
 

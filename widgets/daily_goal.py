@@ -36,6 +36,7 @@ class DailyGoalWidget(CC4UWidget):
             id="goal-input",
         )
         self.mount(inp)
+        self.mount(Static("[dim]Enter to save · Esc to cancel[/dim]", id="goal-hint"))
         self.call_after_refresh(self._focus_input)
 
     def _focus_input(self) -> None:
@@ -57,6 +58,10 @@ class DailyGoalWidget(CC4UWidget):
         state_module.save_widget_data("daily_goal", {"goal": self._goal})
         try:
             self.query_one("#goal-input", Input).remove()
+        except Exception:
+            pass
+        try:
+            self.query_one("#goal-hint", Static).remove()
         except Exception:
             pass
         try:

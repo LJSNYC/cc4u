@@ -336,7 +336,7 @@ if [[ ! -f "$CLAUDE_SETTINGS" ]]; then
 fi
 
 "$PYTHON3" - <<PYEOF
-import json, os, sys
+import json, sys
 from pathlib import Path
 
 settings_path = Path("$CLAUDE_SETTINGS")
@@ -350,11 +350,21 @@ except (json.JSONDecodeError, FileNotFoundError):
 hooks = settings.setdefault("hooks", {})
 
 event_map = {
-    "PostToolUse":  "post_tool_use.fish",
-    "PreToolUse":   "pre_tool_use.fish",
-    "Stop":         "stop.fish",
-    "Notification": "notification.fish",
+    "PostToolUse":   "post_tool_use.fish",
+    "PreToolUse":    "pre_tool_use.fish",
+    "Stop":          "stop.fish",
+    "Notification":  "notification.fish",
+    "TaskCreated":   "task_created.fish",
+    "TaskCompleted": "task_completed.fish",
 }
+
+def already_registered(entries, cmd):
+    for entry in entries:
+        if isinstance(entry, dict):
+            for h in entry.get("hooks", []):
+                if h.get("command") == cmd:
+                    return True
+    return False
 
 for event, fish_file in event_map.items():
     hook_path = hooks_dir / fish_file
@@ -363,37 +373,14 @@ for event, fish_file in event_map.items():
         continue
     cmd = f"fish {hook_path}"
     event_hooks = hooks.setdefault(event, [])
-    if cmd not in event_hooks:
-        event_hooks.append(cmd)
+    if not already_registered(event_hooks, cmd):
+        event_hooks.append({"matcher": "", "hooks": [{"type": "command", "command": cmd}]})
 
 settings_path.write_text(json.dumps(settings, indent=2))
 print("Hooks registered in " + str(settings_path))
 PYEOF
 
 ok "Claude Code hooks registered"
-
-# ── write default config ──────────────────────────────────────────────────────
-hdr "Initialising config…"
-
-CONFIG_FILE="$CONFIG_DIR/config.json"
-if [[ ! -f "$CONFIG_FILE" ]]; then
-  cat > "$CONFIG_FILE" <<'JSON'
-{
-  "theme": "dark",
-  "layout": "default",
-  "widgets": {
-    "enabled": [],
-    "order": []
-  },
-  "notifications": {
-    "macos_native": true
-  }
-}
-JSON
-  ok "Default config written → $CONFIG_FILE"
-else
-  info "Config already exists → $CONFIG_FILE (unchanged)"
-fi
 
 # ── add CC4U init to fish config ──────────────────────────────────────────────
 hdr "Configuring Fish shell…"

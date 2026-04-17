@@ -204,6 +204,12 @@ class PtyPane(CC4UWidget):
             self._load_palette()
 
         if self._proc is None or not self._proc.isalive():
+            try:
+                self.query_one("#pty-output", Static).update(
+                    "[dim]Process ended — click to restart[/dim]"
+                )
+            except Exception:
+                pass
             return
 
         data_arrived = False
@@ -458,6 +464,10 @@ class PtyPane(CC4UWidget):
         event.stop()
 
     def on_click(self, event) -> None:
+        if self._proc is None or not self._proc.isalive():
+            self._scrollback.clear()
+            self._scroll_offset = 0
+            self.call_after_refresh(self._start_process)
         self.focus()
 
     # ── Resize ───────────────────────────────────────────────────────────────

@@ -41,7 +41,7 @@ class TaskTrackerWidget(CC4UWidget):
         if event.y >= add_row:
             self._start_add()
             return
-        idx = event.y - body_offset - 1  # -1 for "X/Y done" summary line
+        idx = max(0, min(event.y - body_offset - 1, len(self._tasks) - 1))
         if 0 <= idx < len(self._tasks):
             self._tasks[idx]["done"] = not self._tasks[idx].get("done", False)
             state_module.save_widget_data("task_tracker", {"tasks": self._tasks})
