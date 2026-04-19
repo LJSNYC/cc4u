@@ -22,7 +22,7 @@ def _read_json(filename: str, fallback):
 def _cached_read(key: str, filename: str, fallback):
     now = time.monotonic()
     if key in _cache and now - _cache_ts.get(key, 0.0) < _CACHE_TTL:
-        return copy.copy(_cache[key])
+        return copy.deepcopy(_cache[key])
     result = _read_json(filename, fallback)
     _cache[key] = result
     _cache_ts[key] = now
