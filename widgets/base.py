@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 from textual.app import ComposeResult
 from textual.widget import Widget
 from textual.widgets import Static
@@ -50,11 +51,15 @@ class CC4UWidget(Widget):
             fresh["git"] = state_module.git()
         if "tools" in self.STATE_KEYS:
             fresh["tools"] = state_module.tools()
-        self.data = fresh
+        h = hash(json.dumps(fresh, sort_keys=True))
+        if h != getattr(self, "_last_data_hash", None):
+            self._last_data_hash = h
+            self.data = fresh
 
     def watch_data(self, new_data: dict) -> None:
+        content = self.render_content()
         try:
-            self.query_one("#widget-body", Static).update(self.render_content())
+            self.query_one("#widget-body", Static).update(content)
         except Exception:
             pass
 
