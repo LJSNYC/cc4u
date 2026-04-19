@@ -42,9 +42,6 @@ def test_read_tolerates_corrupt_json(tmp_path, monkeypatch):
     assert state.session() == {}
 
 
-import time as _time
-
-
 def test_session_returns_cached_value_within_ttl(tmp_path, monkeypatch):
     monkeypatch.setattr(state, "STATE_DIR", str(tmp_path))
     monkeypatch.setattr(state, "_cache", {})

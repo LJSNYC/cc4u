@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import glob
 import os
 import select
 import shutil
@@ -16,6 +17,8 @@ from textual.events import Paste
 from textual.widgets import Static
 
 from widgets.base import CC4UWidget
+
+_SCREENSHOT_DIR = os.path.expanduser("~/Desktop")
 
 # ── ANSI color name → palette index ─────────────────────────────────────────
 _PYTE_NAMED: dict[str, int] = {
@@ -115,6 +118,7 @@ class PtyPane(CC4UWidget):
         self._current_theme: str = ""
         self._cursor_visible: bool = True
         self._blink_counter: int = 0
+        self._last_screenshot_sent: str = ""
 
     # ── Color palettes ───────────────────────────────────────────────────────
 
@@ -164,7 +168,8 @@ class PtyPane(CC4UWidget):
         self._load_palette()
         self._current_theme = getattr(self.app, "theme", "")
         self.call_after_refresh(self._start_process)
-        self.set_interval(0.05, self._tick)
+        self.set_interval(0.08, self._tick)          # was 0.05
+        self.set_interval(3.0, self._check_screenshot)
         self.call_after_refresh(self.focus)
 
     # ── PTY lifecycle ────────────────────────────────────────────────────────
@@ -184,7 +189,14 @@ class PtyPane(CC4UWidget):
             self._proc = ptyprocess.PtyProcess.spawn(
                 [self._cmd],
                 dimensions=(rows, cols),
-                env={**os.environ, "TERM": "xterm-256color"},
+                env={
+                **os.environ,
+                "TERM":           "xterm-256color",
+                "COLORTERM":      "truecolor",
+                "FORCE_COLOR":    "1",
+                "CLICOLOR_FORCE": "1",
+                "NO_COLOR":       "",
+            },
             )
         except Exception as exc:
             try:
@@ -225,15 +237,16 @@ class PtyPane(CC4UWidget):
         except Exception:
             pass
 
-        # Cursor blink — toggle every 8 ticks (~400 ms)
-        self._blink_counter += 1
+        # Cursor blink — only when explicitly enabled in config
         blink_toggled = False
-        if self._blink_counter >= 8:
-            self._cursor_visible = not self._cursor_visible
-            self._blink_counter = 0
-            blink_toggled = True
+        cursor_blink = self.cfg.get("cursor_blink", False)
+        if cursor_blink:
+            self._blink_counter += 1
+            if self._blink_counter >= 8:
+                self._cursor_visible = not self._cursor_visible
+                self._blink_counter = 0
+                blink_toggled = True
 
-        # Only re-render when something actually changed
         if data_arrived or blink_toggled:
             self._render_screen()
             if self._screen and self._screen.dirty:
@@ -451,17 +464,39 @@ class PtyPane(CC4UWidget):
             except Exception:
                 pass
 
-    def on_scroll_up(self, event) -> None:
+    def on_mouse_scroll_up(self, event) -> None:
         self._scroll_offset = min(
             self._scroll_offset + 3, len(self._scrollback)
         )
         self._render_screen()
         event.stop()
 
-    def on_scroll_down(self, event) -> None:
+    def on_mouse_scroll_down(self, event) -> None:
         self._scroll_offset = max(0, self._scroll_offset - 3)
         self._render_screen()
         event.stop()
+
+    def on_focus(self, event=None) -> None:
+        self._check_screenshot()
+
+    def _check_screenshot(self) -> None:
+        if self._proc is None or not self._proc.isalive():
+            return
+        self._try_desktop_screenshot()
+
+    def _try_desktop_screenshot(self) -> None:
+        pattern = os.path.join(_SCREENSHOT_DIR, "Screenshot*.png")
+        files = sorted(glob.glob(pattern), key=os.path.getmtime, reverse=True)
+        if not files:
+            return
+        newest = files[0]
+        age = time.time() - os.path.getmtime(newest)
+        if age < 4.0 and newest != self._last_screenshot_sent:
+            self._last_screenshot_sent = newest
+            try:
+                self._proc.write(newest.encode("utf-8"))
+            except Exception:
+                pass
 
     def on_click(self, event) -> None:
         if self._proc is None or not self._proc.isalive():
