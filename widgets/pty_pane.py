@@ -77,6 +77,7 @@ class _ScrollbackScreen(pyte.Screen):
     def __init__(self, cols: int, rows: int, history: deque) -> None:
         super().__init__(cols, rows)
         self._history = history
+        self._seen_content = False  # skip blank rows before first real output
 
     def index(self) -> None:
         # Snapshot the top line of the scroll region before it's discarded
@@ -84,9 +85,18 @@ class _ScrollbackScreen(pyte.Screen):
             top = self.margins.top if self.margins else 0
             if top == 0:
                 row = self.buffer[0]
-                self._history.append(
-                    {x: row.get(x) for x in range(self.columns)}
-                )
+                if not self._seen_content:
+                    # Don't capture leading blank rows (pre-Claude-Code init)
+                    has_content = any(
+                        row.get(x) and row.get(x).data.strip()
+                        for x in range(self.columns)
+                    )
+                    if has_content:
+                        self._seen_content = True
+                if self._seen_content:
+                    self._history.append(
+                        {x: row.get(x) for x in range(self.columns)}
+                    )
         except Exception:
             pass
         super().index()
@@ -190,12 +200,14 @@ class PtyPane(CC4UWidget):
                 [self._cmd],
                 dimensions=(rows, cols),
                 env={
-                    **os.environ,
+                    # Strip NO_COLOR — supports-color checks for its *presence*,
+                    # so even NO_COLOR="" disables chalk colors before FORCE_COLOR
+                    # is evaluated.
+                    **{k: v for k, v in os.environ.items() if k != "NO_COLOR"},
                     "TERM":           "xterm-256color",
                     "COLORTERM":      "truecolor",
                     "FORCE_COLOR":    "1",
                     "CLICOLOR_FORCE": "1",
-                    "NO_COLOR":       "",
                 },
             )
         except Exception as exc:
@@ -495,7 +507,9 @@ class PtyPane(CC4UWidget):
         if age < 4.0 and newest != self._last_screenshot_sent:
             self._last_screenshot_sent = newest
             try:
-                self._proc.write(newest.encode("utf-8"))
+                # Leading newline ensures path doesn't concatenate onto any
+                # text the user was already typing
+                self._proc.write(b"\n" + newest.encode("utf-8"))
             except Exception:
                 pass
 

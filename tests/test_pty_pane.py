@@ -28,7 +28,7 @@ def test_pty_spawn_env_includes_color_forcing_vars(monkeypatch):
     assert env.get("COLORTERM") == "truecolor"
     assert env.get("FORCE_COLOR") == "1"
     assert env.get("CLICOLOR_FORCE") == "1"
-    assert env.get("NO_COLOR") == ""
+    assert "NO_COLOR" not in env, "NO_COLOR must be absent — its presence disables chalk colors"
     assert env.get("TERM") == "xterm-256color"
 
 
@@ -65,7 +65,7 @@ def test_screenshot_detection_sends_new_file(tmp_path, monkeypatch):
 
     pane._try_desktop_screenshot()
 
-    assert written == [str(screenshot).encode("utf-8")]
+    assert written == [b"\n" + str(screenshot).encode("utf-8")]
 
 
 def test_screenshot_not_sent_twice(tmp_path, monkeypatch):
