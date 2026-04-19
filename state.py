@@ -1,7 +1,12 @@
 import json
+import time
 from pathlib import Path
 
 STATE_DIR = "/tmp/cc4u"
+
+_cache: dict = {}
+_cache_ts: dict = {}
+_CACHE_TTL = 1.0  # seconds
 
 
 def _read_json(filename: str, fallback):
@@ -13,18 +18,27 @@ def _read_json(filename: str, fallback):
         return fallback
 
 
+def _cached_read(key: str, filename: str, fallback):
+    now = time.monotonic()
+    if key in _cache and now - _cache_ts.get(key, 0.0) < _CACHE_TTL:
+        return _cache[key]
+    result = _read_json(filename, fallback)
+    _cache[key] = result
+    _cache_ts[key] = now
+    return result
+
+
 def session() -> dict:
-    return _read_json("session.json", {})
+    return _cached_read("session", "session.json", {})
 
 
 def git() -> dict:
-    return _read_json("git.json", {})
+    return _cached_read("git", "git.json", {})
 
 
 def tools() -> list:
-    data = _read_json("tools.json", [])
+    data = _cached_read("tools", "tools.json", [])
     return data if isinstance(data, list) else []
-
 
 
 WIDGET_DATA_DIR = str(Path.home() / ".config" / "cc4u" / "widget_data")
