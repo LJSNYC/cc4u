@@ -114,3 +114,12 @@ def test_screenshot_not_sent_if_older_than_4s(tmp_path, monkeypatch):
     pane._try_desktop_screenshot()
 
     assert written == [], "Old screenshot should not be sent"
+
+
+def test_on_focus_triggers_screenshot_check(monkeypatch):
+    from widgets.pty_pane import PtyPane
+    checked = []
+    pane = PtyPane(cfg={})
+    monkeypatch.setattr(pane, "_check_screenshot", lambda: checked.append(1))
+    pane.on_focus()
+    assert checked == [1]

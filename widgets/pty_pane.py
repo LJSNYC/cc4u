@@ -190,13 +190,13 @@ class PtyPane(CC4UWidget):
                 [self._cmd],
                 dimensions=(rows, cols),
                 env={
-                **os.environ,
-                "TERM":           "xterm-256color",
-                "COLORTERM":      "truecolor",
-                "FORCE_COLOR":    "1",
-                "CLICOLOR_FORCE": "1",
-                "NO_COLOR":       "",
-            },
+                    **os.environ,
+                    "TERM":           "xterm-256color",
+                    "COLORTERM":      "truecolor",
+                    "FORCE_COLOR":    "1",
+                    "CLICOLOR_FORCE": "1",
+                    "NO_COLOR":       "",
+                },
             )
         except Exception as exc:
             try:
@@ -486,11 +486,12 @@ class PtyPane(CC4UWidget):
 
     def _try_desktop_screenshot(self) -> None:
         pattern = os.path.join(_SCREENSHOT_DIR, "Screenshot*.png")
-        files = sorted(glob.glob(pattern), key=os.path.getmtime, reverse=True)
+        files = glob.glob(pattern)
         if not files:
             return
-        newest = files[0]
-        age = time.time() - os.path.getmtime(newest)
+        newest = max(files, key=os.path.getmtime)
+        mtime = os.path.getmtime(newest)
+        age = time.time() - mtime
         if age < 4.0 and newest != self._last_screenshot_sent:
             self._last_screenshot_sent = newest
             try:
