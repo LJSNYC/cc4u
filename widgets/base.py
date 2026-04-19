@@ -39,6 +39,7 @@ class CC4UWidget(Widget):
         super().__init__(**kwargs)
         self.cfg = cfg
         self.add_class("cc4u-widget")
+        self._last_data_hash: int | None = None
 
     def on_mount(self) -> None:
         self.set_interval(self.REFRESH_RATE, self._poll_state)
